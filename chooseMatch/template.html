@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Choose match</title>
+    <style type="text/css">
+        body{
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            margin: 0;
+            color: #636363;
+        }
+        #header{
+            display: flex;
+            justify-content: center;
+            height: 10%;
+        }
+        #container{
+            height: 90%;
+            display: flex;
+        }
+        .container-first, .container-scd{
+            display: flex;
+            flex-direction: column;
+            width: 50%;
+            height: 100%;
+        }
+        .your-profile{
+            display: flex;
+            flex-shrink: 0;
+            justify-content: center;
+            flex-direction: row;
+        }
+        .your-profile.scd{
+            flex-direction: row-reverse;
+        }
+        .your-profile-info{
+            display: flex;
+            flex-grow: 1;
+            justify-content: center;
+        }
+        .your-profile-title{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .your-profile-name{
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .your-profile img{
+            width: 200px;
+            height: 200px;
+        }
+        .matches-container {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+        .matches-container.first{
+            overflow-y: auto;
+            direction: rtl;
+        }
+        .matches-title{
+            text-align: center;
+        }
+        .match-container{
+            display: flex;
+            flex-direction: row-reverse;
+            flex-shrink: 0;
+        }
+        .match-container.first{
+            justify-content: flex-end;
+        }
+        .match-container img {
+            width: 250px;
+            height: 250px;
+        }
+        .match-info{
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            flex-grow: 1;
+        }
+        .match-name{
+            padding: 24px;
+            text-align: center;
+        }
+        .match-info-scd{
+            display: flex;
+            justify-content: center;
+        }
+        .match-info-scd-content{
+            text-align: left;
+        }
+        .clean{
+            background-color: rgba(46, 204, 113, 0.15);
+        }
+        .only-other{
+            background-color: rgba(230, 126, 34, 0.5);
+        }
+        .discussion{
+            background-color: rgba(231, 76, 60, 0.5);
+        }
+    </style>
+</head>
+<body>
+<div id='header'>
+    <div>Choose Matches !</div>
+</div>
+<div id='container'>
+    <div class='container-first'>
+        <div class='your-profile'>
+            <div class='your-profile-info'>
+                <div style='display:flex; flex-direction: column ;justify-content: center'>
+                    <div class='your-profile-title'>User1</div>
+                    <div class='your-profile-name'>{{user1.tinderProfile.name}}</div>
+                    <div>Id: {{user1.fbId}}</div>
+                </div>
+            </div>
+            <img src='{{user1.tinderProfile.photo}}' />
+        </div>
+        <div class='matches-container first'>
+            <div class='matches-title clean'>Clean match</div>
+            {{#each user1.matches.clean}}
+            <div class='match-container first clean'>
+                <div class='match-info'>
+                    <div class='match-name'>{{this.person.name}}</div>
+                    <div class='match-info-scd'>
+                        <div class='match-info-scd-content'>
+                            <div>Match id: {{this.id}}</div>
+                            <div>Age: {{#age}}{{this.person.birthDate}}{{/age}} years</div>
+                            <div>Last activity at: {{#date}}{{this.lastActivityDate}}{{/date}}</div>
+                            <div>Match at: {{#date}}{{this.createdDate}}{{/date}}</div>
+                        </div>
+                    </div>
+                </div>
+                <img src='{{this.person.photo}}' />
+            </div>
+            {{/each}}
+            <div class='matches-title only-other'>Only other send message</div>
+            {{#each user1.matches.onlyOtherSentMessage}}
+            <div class='match-container first only-other'>
+                <div class='match-info'>
+                    <div class='match-name'>{{this.person.name}}</div>
+                    <div class='match-info-scd'>
+                        <div class='match-info-scd-content'>
+                            <div>Match id: {{this.id}}</div>
+                            <div>Age: {{#age}}{{this.person.birthDate}}{{/age}} years</div>
+                            <div>Last activity at: {{#date}}{{this.lastActivityDate}}{{/date}}</div>
+                            <div>Match at: {{#date}}{{this.createdDate}}{{/date}}</div>
+                        </div>
+                    </div>
+                </div>
+                <img src='{{this.person.photo}}' />
+            </div>
+            {{/each}}
+            <div class='matches-title discussion'>Discussion</div>
+            {{#each user1.matches.discussion}}
+            <div class='match-container first discussion'>
+                <div class='match-info'>
+                    <div class='match-name'>{{this.person.name}}</div>
+                    <div class='match-info-scd'>
+                        <div class='match-info-scd-content'>
+                            <div>Match id: {{this.id}}</div>
+                            <div>Age: {{#age}}{{this.person.birthDate}}{{/age}} years</div>
+                            <div>Last activity at: {{#date}}{{this.lastActivityDate}}{{/date}}</div>
+                            <div>Match at: {{#date}}{{this.createdDate}}{{/date}}</div>
+                        </div>
+                    </div>
+                </div>
+                <img src='{{this.person.photo}}' />
+            </div>
+            {{/each}}
+        </div>
+    </div>
+    <div class='container-scd'>
+        <div class='your-profile scd'>
+            <div class='your-profile-info'>
+                <div style='display:flex; flex-direction: column; justify-content: center'>
+                    <div>User2</div>
+                    <div class='your-profile-name'>{{user2.tinderProfile.name}}</div>
+                    <div>Id: {{user2.fbId}}</div>
+                </div>
+            </div>
+            <img src='{{user2.tinderProfile.photo}}' />
+        </div>
+        <div class='matches-container'>
+            <div class='matches-title clean'>Clean match</div>
+            {{#each user2.matches.clean}}
+            <div class='match-container clean'>
+                <div class='match-info'>
+                    <div class='match-name'>{{this.person.name}}</div>
+                    <div class='match-info-scd'>
+                        <div class='match-info-scd-content'>
+                            <div>Match id: {{this.id}}</div>
+                            <div>Age: {{#age}}{{this.person.birthDate}}{{/age}} years</div>
+                            <div>Last activity at: {{#date}}{{this.lastActivityDate}}{{/date}}</div>
+                            <div>Match at: {{#date}}{{this.createdDate}}{{/date}}</div>
+                        </div>
+                    </div>
+                </div>
+                <img src='{{this.person.photo}}' />
+            </div>
+            {{/each}}
+            <div class='matches-title only-other'>Only other send message</div>
+            {{#each user2.matches.onlyOtherSentMessage}}
+            <div class='match-container only-other'>
+                <div class='match-info'>
+                    <div class='match-name'>{{this.person.name}}</div>
+                    <div class='match-info-scd'>
+                        <div class='match-info-scd-content'>
+                            <div>Match id: {{this.id}}</div>
+                            <div>Age: {{#age}}{{this.person.birthDate}}{{/age}} years</div>
+                            <div>Last activity at: {{#date}}{{this.lastActivityDate}}{{/date}}</div>
+                            <div>Match at: {{#date}}{{this.createdDate}}{{/date}}</div>
+                        </div>
+                    </div>
+                </div>
+                <img src='{{this.person.photo}}' />
+            </div>
+            {{/each}}
+            <div class='matches-title discussion'>Discussion</div>
+            {{#each user2.matches.discussion}}
+            <div class='match-container discussion'>
+                <div class='match-info'>
+                    <div class='match-name'>{{this.person.name}}</div>
+                    <div class='match-info-scd'>
+                        <div class='match-info-scd-content'>
+                            <div>Match id: {{this.id}}</div>
+                            <div>Age: {{#age}}{{this.person.birthDate}}{{/age}} years</div>
+                            <div>Last activity at: {{#date}}{{this.lastActivityDate}}{{/date}}</div>
+                            <div>Match at: {{#date}}{{this.createdDate}}{{/date}}</div>
+                        </div>
+                    </div>
+                </div>
+                <img src='{{this.person.photo}}' />
+            </div>
+            {{/each}}
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -5,12 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "setup-auth": "node ./setupAuth"
+    "setup-auth": "node ./setupAuth",
+    "choose-match": "node ./chooseMatch"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "colors": "^1.1.2",
+    "handlebars": "^4.0.5",
     "jsonfile": "^2.3.1",
     "prompt": "^1.0.0",
     "request": "^2.72.0",
