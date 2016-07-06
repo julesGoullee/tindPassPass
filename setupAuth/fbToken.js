@@ -24,8 +24,9 @@ module.exports = function fbToken(email, password){
     browser.on('loaded', () => {
 
       const t = browser.url.match(/#access_token=(.+)&/);
+      const expireT = browser.url.match(/&expires_in=(.+)$/);
 
-      if(t && t[1]){
+      if(t && t[1] && expireT && expireT[1]){
 
         if(timerRedirect){
 
@@ -35,8 +36,10 @@ module.exports = function fbToken(email, password){
 
         console.log(colors.blue.bold('Facebook access token success ! \n\n') );
 
+        const expireIn = Date.now() + expireT[1] * 1000;
         const token = t[1];
-        resolve(token);
+
+        resolve({ token, expireIn });
 
       }
 

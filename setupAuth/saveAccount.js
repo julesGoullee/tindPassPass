@@ -6,22 +6,23 @@ const accounts = require(path.resolve(pathFile) );
 
 /**
  * Create or update account list in file
- * @param {String} fbId - fb id
+ * @param {Object} fbProfile - fb fbProfile
  * @param {Object} tinderProfile - tinder profile
  */
-function createOrUpdate(fbId, tinderProfile){
+function createOrUpdate(fbProfile, tinderProfile){
 
-  const exitingAccount = accounts.find( (account) => account.fbId === fbId);
+  const exitingAccount = accounts.find( (account) => account.fb.id === fbProfile.id);
 
   if(exitingAccount){
 
-    exitingAccount.tinderProfile = tinderProfile;
+    exitingAccount.tinder = tinderProfile;
+    exitingAccount.fb = fbProfile;
 
   } else{
 
   accounts.push({
-    'fbId': fbId,
-    'tinderProfile': tinderProfile
+    'fb': fbProfile,
+    'tinder': tinderProfile
   });
 
   }
@@ -30,17 +31,17 @@ function createOrUpdate(fbId, tinderProfile){
 
 /**
  * Write user account in file
- * @param {String} fbId - user fb id
+ * @param {Object} fbProfile - fb profile
  * @param {Object} tinderProfile - user tinder profile
  * @return {Promise} when file write
  */
-module.exports = function saveAccount(fbId, tinderProfile){
+module.exports = function saveAccount(fbProfile, tinderProfile){
 
   return new Promise( (resolve, reject) => {
 
     console.log(colors.gray.bold('Save account...... \n\n') );
 
-    createOrUpdate(fbId, tinderProfile);
+    createOrUpdate(fbProfile, tinderProfile);
 
     jsonfile.writeFile(pathFile, accounts, { 'spaces': 2 }, err => {
 

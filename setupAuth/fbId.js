@@ -9,14 +9,16 @@ const consts = require('./const');
  */
 function fbApiError(body){
 
-  return (typeof body === 'object' &&
-  typeof body.error === 'object' &&
-  typeof body.error.message === 'string');
+  return (
+    typeof body === 'object' &&
+    typeof body.error === 'object' &&
+    typeof body.error.message === 'string'
+  );
 
 }
 
 /**
- *  Call facebook graph api /me to get user id
+ * Call facebook graph api /me to get user id
  * @param {String} token - fb access token
  * @return {Promise} resolve with fb id
  */

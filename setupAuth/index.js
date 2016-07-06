@@ -6,27 +6,27 @@ const tinderToken = require('./tinderToken');
 const tinderProfile = require('./tinderProfile');
 const saveAccount = require('./saveAccount');
 
-let saveFbToken = null;
-let saveFbId = null;
+let saveFb = {};
 
 fbLogin()
   .then(login => fbToken(login.email, login.pass) )
-  .then(token => {
+  .then(fbData => {
 
-    saveFbToken = token;
-    
-    return fbId(saveFbToken);
+    saveFb.token = fbData.token;
+    saveFb.expireIn = fbData.expireIn;
+
+    return fbId(saveFb.token);
 
   })
   .then(id => {
 
-    saveFbId = id;
+    saveFb.id = id;
 
-    return tinderToken(saveFbToken, saveFbId);
+    return tinderToken(saveFb.token, saveFb.id);
 
   })
   .then(token => tinderProfile(token) )
-  .then(profile => saveAccount(saveFbId, profile) )
+  .then(profile => saveAccount(saveFb, profile) )
   .then( () => {
 
     console.log(colors.yellow.bold('All done !\n\n') );

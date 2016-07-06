@@ -2,9 +2,9 @@ const colors = require('colors/safe');
 const matches = require('./matches');
 const order = require('./order');
 const render = require('./render');
-const accounts = require('../data/accounts.json');
-const user1 = accounts.find(user => user.fbId === '1451205225');
-const user2 = accounts.find(user => user.fbId === '1451205225');
+const accounts = require('../data/accounts');
+const user1 = accounts.find(user => user.fb.id === '1451205225');
+const user2 = accounts.find(user => user.fb.id === '1451205225');
 
 Promise.all([
   matches(user1).then( (matches) => order(matches) ),
@@ -21,5 +21,3 @@ Promise.all([
   console.error(err.stack);
 
 });
-
-

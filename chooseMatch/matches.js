@@ -8,17 +8,19 @@ const tinder = require('tinder');
  */
 function isCorrectPerson(match){
 
-  return (typeof match.id === 'string' &&
-  typeof match.created_date === 'string' &&
-  typeof match.last_activity_date === 'string' &&
-  typeof match.common_friend_count === 'number' &&
-  typeof match.person === 'object' &&
-  typeof match.person._id === 'string' &&
-  typeof match.person.birth_date === 'string' &&
-  Array.isArray(match.messages) &&
-  Array.isArray(match.person.photos) &&
-  typeof match.person.photos[0] === 'object' &&
-  typeof match.person.photos[0].url === 'string');
+  return (
+    typeof match.id === 'string' &&
+    typeof match.created_date === 'string' &&
+    typeof match.last_activity_date === 'string' &&
+    typeof match.common_friend_count === 'number' &&
+    typeof match.person === 'object' &&
+    typeof match.person._id === 'string' &&
+    typeof match.person.birth_date === 'string' &&
+    Array.isArray(match.messages) &&
+    Array.isArray(match.person.photos) &&
+    typeof match.person.photos[0] === 'object' &&
+    typeof match.person.photos[0].url === 'string'
+  );
 
 }
 
@@ -54,7 +56,7 @@ function userSentMessage(messages, userId){
  */
 function extractData(res, userId){
 
-  return res.matches.reduce((acc, match) => {
+  return res.matches.reduce( (acc, match) => {
 
     if(isCorrectPerson(match) ){
 
@@ -89,11 +91,13 @@ module.exports = function matches(user){
 
   return new Promise( (resolve, reject) => {
 
-    console.log(colors.red.bold(`Get matches ${user.tinderProfile.name}...... \n\n`) );
+    console.log(colors.red.bold(`Get matches ${user.tinder.name}...... \n\n`) );
 
     const client = new tinder.TinderClient();
 
-    client.setAuthToken(user.tinderProfile.token);
+    client.setAuthToken(user.tinder.token);
+
+    client.userId = user.tinder.id;
 
     client.getHistory( (err, res) => {
 
@@ -103,7 +107,7 @@ module.exports = function matches(user){
 
       }
 
-      const matches = extractData(res, user.tinderProfile.id);
+      const matches = extractData(res, user.tinder.id);
 
       console.log(colors.red.bold('Get matches success ! \n\n') );
 

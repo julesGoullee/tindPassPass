@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "setup-auth": "node ./setupAuth",
-    "choose-match": "node ./chooseMatch"
+    "choose-match": "node ./chooseMatch",
+    "pass-pass-matches": "node ./passPassMatches"
   },
   "author": "",
   "license": "ISC",

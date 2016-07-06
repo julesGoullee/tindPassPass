@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const handlebars = require('handlebars');
-const templateSrc = fs.readFileSync('./template.html').toString();
+const templateSrc = fs.readFileSync('./chooseMatch/template.html').toString();
 const template = handlebars.compile(templateSrc);
 const currentYear = (new Date() ).getFullYear();
 
@@ -34,7 +34,7 @@ function getFileName(userFirst, userScd){
   const min =  (`0${now.getMinutes()}`).slice(-2);
   const sec = (`0${now.getSeconds()}`).slice(-2);
 
-  return `${day}-${month}-${year}--${hour}-${min}-${sec}__${userFirst.fbId}-${userScd.fbId}`;
+  return `${day}-${month}-${year}--${hour}-${min}-${sec}__${userFirst.fb.id}-${userScd.fb.id}`;
 
 }
 
@@ -51,7 +51,7 @@ module.exports = function render(user1, user2){
 
     const html = template({ user1, user2 });
 
-    fs.writeFile(path.resolve('../data/chooseMatch/', `${getFileName(user1, user2)}.html`), html, err => {
+    fs.writeFile(path.resolve('./data/chooseMatch/', `${getFileName(user1, user2)}.html`), html, err => {
 
       if(err){
 

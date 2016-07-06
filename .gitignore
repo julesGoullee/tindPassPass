@@ -3,3 +3,4 @@ node_modules/
 data/accounts.json
 /data/chooseMatch/
 !/data/chooseMatch/.gitkeep
+/data/passPassMatches.json
