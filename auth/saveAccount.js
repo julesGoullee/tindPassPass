@@ -15,15 +15,15 @@ function createOrUpdate(fbProfile, tinderProfile){
 
   if(exitingAccount){
 
-    exitingAccount.tinder = tinderProfile;
-    exitingAccount.fb = fbProfile;
+    Object.assign(exitingAccount.tinder, tinderProfile);
+    Object.assign(exitingAccount.fb, fbProfile);
 
   } else{
 
-  accounts.push({
-    'fb': fbProfile,
-    'tinder': tinderProfile
-  });
+    accounts.push({
+      'fb': fbProfile,
+      'tinder': tinderProfile
+    });
 
   }
 

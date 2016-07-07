@@ -5,7 +5,7 @@ const prompt = require('prompt');
  * Show prompt to get user fb login
  * @return {Promise} when you enter login
  */
-module.exports = function getFbLogin(){
+module.exports = function input(){
 
   return new Promise( (resolve, reject) => {
 
