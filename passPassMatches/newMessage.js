@@ -125,12 +125,16 @@ function poolNewMatchesMessages(profile, cb, countCall){
 
     if(err.status === 401){
 
-      log.info('update', `Renew token user ${profile.fb.id}`);
+      log.info('update', `Renew token user ${profile.fb.id}......\n\n`);
 
       authRenew(profile.fb.email, profile.fb.pass).then( (updateProfile) => {
 
+        log.info('update', `Renew token user ${profile.fb.id} success !\n\n`);
+
         Object.assign(profile, updateProfile);
         profile.tinderClient.setAuthToken(profile.tinder.token);
+
+        setTimeout( () => poolNewMatchesMessages(profile, cb, countCall), consts.CHECK_MESSAGE_INTERVAL);
 
       }).catch(err => {
 
