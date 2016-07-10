@@ -1,3 +1,4 @@
+require('../log/config');
 const path = require('path');
 const pathFile = './data/passPassMatches';
 const passPassMatchesFile = require(path.resolve(pathFile) );

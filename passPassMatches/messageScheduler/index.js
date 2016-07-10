@@ -1,3 +1,4 @@
+const log = require('npmlog');
 const send = require('./send');
 
 /**
@@ -77,13 +78,13 @@ module.exports = function messageScheduler(profile, matchWithMessages){
     send(otherUser, otherUser.matchId, matchWithMessages.messages)
       .catch(err => {
 
-        console.error(err.stack);
+        log.error('update', err.stack);
 
       });
 
   } else {
 
-    console.info(`${profile.fb.id} match new messages isn't pass pass`);
+    log.info('update', `${profile.fb.id} match new messages isn't pass pass`);
 
   }
 

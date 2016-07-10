@@ -1,3 +1,4 @@
+const log = require('npmlog');
 const consts = require('./consts');
 
 /**
@@ -63,7 +64,7 @@ function getNewMessages(profile){
 
     profile.tinderClient.getUpdates( (err, res) => {
 
-      console.log(`
+      log.info('update', `
           Update ${profile.fb.id}:
           res: ${JSON.stringify(res)}
           err: ${JSON.stringify(err)}

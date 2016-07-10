@@ -1,4 +1,4 @@
-const decode = require('../setup/cypher/decode');
+const decode = require('../setup/decode');
 const fbToken = require('../fbToken');
 const tinderToken = require('../tinderToken');
 const saveAccount = require('../saveAccount');

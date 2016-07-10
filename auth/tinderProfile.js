@@ -1,3 +1,4 @@
+const log = require('npmlog');
 const colors = require('colors/safe');
 const tinder = require('tinder');
 
@@ -10,7 +11,7 @@ module.exports = function tinderProfile(tinderToken){
 
   return new Promise( (resolve, reject) => {
 
-    console.log(colors.red.bold('Get tinder profile...... \n\n') );
+    log.info('step', colors.red.bold('Get tinder profile...... \n\n') );
 
     const client = new tinder.TinderClient();
 
@@ -31,7 +32,7 @@ module.exports = function tinderProfile(tinderToken){
         'photo': res.user.photos[0].url
       };
 
-      console.log(colors.red.bold('Tinder profile success ! \n\n') );
+      log.info('step', colors.red.bold('Tinder profile success ! \n\n') );
 
       resolve(profile);
 

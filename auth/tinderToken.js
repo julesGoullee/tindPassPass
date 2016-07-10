@@ -1,3 +1,4 @@
+const log = require('npmlog');
 const colors = require('colors/safe');
 const tinder = require('tinder');
 const client = new tinder.TinderClient();
@@ -11,13 +12,13 @@ module.exports = function tinderToken(fbToken, fbId){
 
   return new Promise( (resolve, reject) => {
 
-    console.log(colors.red.bold('Tinder authentication...... \n\n') );
+    log.info('step', colors.red.bold('Tinder authentication...... \n\n') );
 
     client.authorize(fbToken, fbId, () => {
 
       if(client.isAuthorized() ){
 
-        console.log(colors.red.bold('Tinder token success ! \n\n') );
+        log.info('level', colors.red.bold('Tinder token success ! \n\n') );
 
         resolve(client.getAuthToken() );
 

@@ -1,3 +1,4 @@
+const log = require('npmlog');
 const colors = require('colors/safe');
 const path = require('path');
 const jsonfile = require('jsonfile');
@@ -39,7 +40,7 @@ module.exports = function saveAccount(fbProfile, tinderProfile){
 
   return new Promise( (resolve, reject) => {
 
-    console.log(colors.gray.bold('Save account...... \n\n') );
+    log.info('step', colors.gray.bold('Save account...... \n\n') );
 
     createOrUpdate(fbProfile, tinderProfile);
 
@@ -51,7 +52,7 @@ module.exports = function saveAccount(fbProfile, tinderProfile){
 
       }
 
-      console.log(colors.gray.bold('Save account success ! \n\n') );
+      log.info('step', colors.gray.bold('Save account success ! \n\n') );
 
       resolve();
 

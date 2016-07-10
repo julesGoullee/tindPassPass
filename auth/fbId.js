@@ -1,3 +1,4 @@
+const log = require('npmlog');
 const colors = require('colors/safe');
 const r = require('request');
 const consts = require('./const');
@@ -26,7 +27,7 @@ module.exports = function fbId(token){
 
   return new Promise( (resolve, reject) => {
 
-    console.log(colors.blue.bold('Get facebook graph api...... \n\n') );
+    log.info('step', colors.blue.bold('Get facebook graph api...... \n\n') );
 
     r({
       'method': 'GET',
@@ -44,7 +45,7 @@ module.exports = function fbId(token){
 
       }
 
-      console.log(colors.blue.bold('Facebook id success ! \n\n') );
+      log.info('step', colors.blue.bold('Facebook id success ! \n\n') );
 
       resolve(body.id);
 

@@ -1,3 +1,4 @@
+const log = require('npmlog');
 const colors = require('colors/safe');
 const tinder = require('tinder');
 
@@ -91,7 +92,7 @@ module.exports = function matches(user){
 
   return new Promise( (resolve, reject) => {
 
-    console.log(colors.red.bold(`Get matches ${user.tinder.name}...... \n\n`) );
+    log.info('step', colors.red.bold(`Get matches ${user.tinder.name}...... \n\n`) );
 
     const client = new tinder.TinderClient();
 
@@ -109,7 +110,7 @@ module.exports = function matches(user){
 
       const matches = extractData(res, user.tinder.id);
 
-      console.log(colors.red.bold('Get matches success ! \n\n') );
+      log.info('step', colors.red.bold('Get matches success ! \n\n') );
 
       resolve(matches);
 

@@ -1,3 +1,4 @@
+const log = require('npmlog');
 const Browser = require('zombie');
 const colors = require('colors/safe');
 const consts = require('./const');
@@ -12,7 +13,7 @@ module.exports = function fbToken(email, password){
 
   return new Promise( (resolve, reject) => {
 
-    console.log(colors.blue.bold('Facebook authentication...... \n\n') );
+    log.info('step', colors.blue.bold('Facebook authentication...... \n\n') );
 
     const browser = new Browser({
       'waitDuration': '20s'
@@ -34,7 +35,7 @@ module.exports = function fbToken(email, password){
 
         }
 
-        console.log(colors.blue.bold('Facebook access token success ! \n\n') );
+        log.info('step', colors.blue.bold('Facebook access token success ! \n\n') );
 
         const expireIn = Date.now() + expireT[1] * 1000;
         const token = t[1];
