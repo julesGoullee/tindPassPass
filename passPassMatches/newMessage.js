@@ -1,5 +1,8 @@
 const log = require('npmlog');
 const consts = require('./consts');
+const authRenew = require('../auth/renew');
+
+let globalCount = 0;
 
 /**
  * Extract message from api update res, group by match
@@ -94,10 +97,16 @@ function getNewMessages(profile){
  * Recursive function for pooling new message for user
  * @param {Object} profile - user props
  * @param {Function} cb - call each new match messages
+ * @param {Number} countCall - count user call api
  */
-function poolNewMatchesMessages(profile, cb){
+function poolNewMatchesMessages(profile, cb, countCall){
 
   getNewMessages(profile).then( matchesWithMessages => {
+
+    globalCount +=1;
+    countCall +=1;
+
+    log.info('update', `global count api tinder: ${globalCount}, user ${profile.fb.id}: ${countCall}`);
 
     if(matchesWithMessages.length > 0){
 
@@ -105,14 +114,35 @@ function poolNewMatchesMessages(profile, cb){
 
     }
 
-    setTimeout( () => poolNewMatchesMessages(profile, cb), consts.CHECK_MESSAGE_INTERVAL);
+    setTimeout( () => poolNewMatchesMessages(profile, cb, countCall), consts.CHECK_MESSAGE_INTERVAL);
 
   }).catch(err => {
 
-    console.error(`Pool update error for ${profile.fb.id}`);
-    console.error(err.stack);
 
-    setTimeout( () => poolNewMatchesMessages(profile, cb), consts.CHECK_MESSAGE_INTERVAL);
+    log.error('update', `Pool update error for ${profile.fb.id}`);
+    log.error(err.stack);
+
+    if(err.code === 401){
+
+      log.info('update', `Renew token user ${profile.fb.id}`);
+
+      authRenew(profile.fb.email, profile.fb.pass).then( (updateProfile) => {
+
+        Object.assign(profile, updateProfile);
+        profile.tinderClient.setAuthToken(profile.tinder.token);
+
+      }).catch(err => {
+
+        log.error('update', `Error renew for ${profile.fb.id}`);
+        log.error(err.stack);
+
+      });
+
+    } else{
+
+      setTimeout( () => poolNewMatchesMessages(profile, cb, countCall), consts.CHECK_MESSAGE_INTERVAL);
+
+    }
 
   });
 
@@ -125,6 +155,6 @@ function poolNewMatchesMessages(profile, cb){
  */
 module.exports = function newMessage(profiles, onNewMessage){
 
-  profiles.forEach(profile => poolNewMatchesMessages(profile, onNewMessage) );
+  profiles.forEach(profile => poolNewMatchesMessages(profile, onNewMessage, 0) );
 
 };
