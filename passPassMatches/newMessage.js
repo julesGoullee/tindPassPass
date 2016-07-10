@@ -1,4 +1,5 @@
 const log = require('npmlog');
+const colors = require('colors/safe');
 const consts = require('./consts');
 const authRenew = require('../auth/renew');
 
@@ -154,6 +155,8 @@ function poolNewMatchesMessages(profile, cb, countCall){
  * @param {Function} onNewMessage - callback on new match messages
  */
 module.exports = function newMessage(profiles, onNewMessage){
+
+  log.info('step', colors.yellow.bold(`Listen new message for ${profiles.length} users!\n\n`) );
 
   profiles.forEach(profile => poolNewMatchesMessages(profile, onNewMessage, 0) );
 
