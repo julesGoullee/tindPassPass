@@ -1,10 +1,13 @@
-require('../log/config');
+require('../config/log');
 const log = require('npmlog');
 const colors = require('colors/safe');
+const path = require('path');
+
 const matches = require('./matches');
 const order = require('./order');
 const render = require('./render');
-const accounts = require('../data/accounts');
+const consts = require('../config/consts');
+const accounts = require(path.resolve( path.join(consts.DATA_PATH, '/accounts') ));
 const user1 = accounts.find(user => user.fb.id === '');
 const user2 = accounts.find(user => user.fb.id === '');
 

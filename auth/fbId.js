@@ -1,7 +1,7 @@
 const log = require('npmlog');
 const colors = require('colors/safe');
 const r = require('request');
-const consts = require('./const');
+const consts = require('./consts');
 
 /**
  * Check if req fb graph api is error

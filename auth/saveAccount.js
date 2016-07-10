@@ -2,8 +2,9 @@ const log = require('npmlog');
 const colors = require('colors/safe');
 const path = require('path');
 const jsonfile = require('jsonfile');
-const pathFile = './data/accounts.json';
-const accounts = require(path.resolve(pathFile) );
+const consts = require('../config/consts');
+const pathFile = path.resolve(path.join(consts.DATA_PATH, '/accounts.json') );
+const accounts = require(pathFile);
 
 /**
  * Create or update account list in file

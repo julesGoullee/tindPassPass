@@ -1,6 +1,3 @@
 node_modules/
 .idea/
-data/accounts.json
-/data/chooseMatch/
-!/data/chooseMatch/.gitkeep
-/data/passPassMatches.json
+dataDev/

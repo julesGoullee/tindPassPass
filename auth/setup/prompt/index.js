@@ -1,4 +1,4 @@
-require('../../../log/config');
+require('../../../config/log');
 const log = require('npmlog');
 const colors = require('colors/safe');
 const setupCommon = require('../common');

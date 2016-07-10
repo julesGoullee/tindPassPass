@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const handlebars = require('handlebars');
+const consts = require('../config/consts');
 const templateSrc = fs.readFileSync('./chooseMatch/template.html').toString();
 const template = handlebars.compile(templateSrc);
 const currentYear = (new Date() ).getFullYear();
@@ -51,7 +52,7 @@ module.exports = function render(user1, user2){
 
     const html = template({ user1, user2 });
 
-    fs.writeFile(path.resolve('./data/chooseMatch/', `${getFileName(user1, user2)}.html`), html, err => {
+    fs.writeFile(path.resolve( path.join(consts.DATA_PATH, '/chooseMatch/'), `${getFileName(user1, user2)}.html`), html, err => {
 
       if(err){
 

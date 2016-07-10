@@ -1,5 +1,12 @@
-const accounts = require('../../data/accounts');
+const path = require('path');
+const consts = require('../../config/consts');
+const accounts = require(path.resolve( path.join(consts.DATA_PATH, '/accounts') ));
 
+/**
+ * Find user by fbId or throw error
+ * @param {String} fbId - user fb id
+ * @return {Object} - user profile
+ */
 function getUserAccount(fbId){
 
   const account = accounts.find( account => account.fb.id === fbId);
@@ -14,6 +21,11 @@ function getUserAccount(fbId){
 
 }
 
+/**
+ * Find users by fbId
+ * @param {Array} usersId - list of users fb id
+ * @return {Array} - user profiles is in list
+ */
 module.exports = function usersAccounts(usersId){
 
   return usersId.map( userId => getUserAccount(userId) );

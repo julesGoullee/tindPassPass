@@ -1,7 +1,7 @@
-require('../log/config');
+require('../config/log');
 const path = require('path');
-const pathFile = './data/passPassMatches';
-const passPassMatchesFile = require(path.resolve(pathFile) );
+const consts = require('../config/consts');
+const passPassMatchesFile = require(path.resolve( path.join(consts.DATA_PATH, '/passPassMatches') ));
 
 const passPassMatches = Object.assign([], passPassMatchesFile);
 const uniqueProfiles = require('./uniqueProfiles');

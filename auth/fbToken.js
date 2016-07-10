@@ -1,7 +1,7 @@
 const log = require('npmlog');
 const Browser = require('zombie');
 const colors = require('colors/safe');
-const consts = require('./const');
+const consts = require('./consts');
 
 /**
  * Get fb access token for tinder app
