@@ -121,7 +121,6 @@ function poolNewMatchesMessages(profile, cb, countCall){
 
 
     log.error('update', `Pool update error for ${profile.fb.id}`);
-    log.error(err.stack);
 
     if(err.status === 401){
 
@@ -131,10 +130,11 @@ function poolNewMatchesMessages(profile, cb, countCall){
 
         log.info('update', `Renew token user ${profile.fb.id} success !\n\n`);
 
-        Object.assign(profile, updateProfile);
+        Object.assign(profile.fb, updateProfile.fb);
+        Object.assign(profile.tinder, updateProfile.tinder);
         profile.tinderClient.setAuthToken(profile.tinder.token);
 
-        setTimeout( () => poolNewMatchesMessages(profile, cb, countCall), consts.CHECK_MESSAGE_INTERVAL);
+        poolNewMatchesMessages(profile, cb, countCall);
 
       }).catch(err => {
 
@@ -145,6 +145,7 @@ function poolNewMatchesMessages(profile, cb, countCall){
 
     } else{
 
+      log.error(err.stack);
       setTimeout( () => poolNewMatchesMessages(profile, cb, countCall), consts.CHECK_MESSAGE_INTERVAL);
 
     }
