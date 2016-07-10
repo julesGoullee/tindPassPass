@@ -15,8 +15,4 @@ setupCommon(login.email, login.pass)
     process.exit(0);
 
   })
-  .catch( (err) => {
-
-    log.error('step error', colors.red.bold(err.stack) );
-
-  });
+  .catch(err => log.error('step', colors.red.bold(err.stack) ) );

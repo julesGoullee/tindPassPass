@@ -123,7 +123,7 @@ function poolNewMatchesMessages(profile, cb, countCall){
     log.error('update', `Pool update error for ${profile.fb.id}`);
     log.error(err.stack);
 
-    if(err.code === 401){
+    if(err.status === 401){
 
       log.info('update', `Renew token user ${profile.fb.id}`);
 

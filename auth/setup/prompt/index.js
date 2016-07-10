@@ -12,8 +12,4 @@ input()
     process.exit(0);
 
   })
-  .catch( (err) => {
-
-    log.error(colors.red.bold(err.stack) );
-
-  });
+  .catch( (err) => log.error(colors.red.bold(err.stack) ) );

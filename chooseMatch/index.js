@@ -21,8 +21,4 @@ Promise.all([
     log.info('step', colors.yellow.bold('All done !\n\n') );
     process.exit(0);
 
-  }).catch(err => {
-
-    log.error('fatal', err.stack);
-
-});
+  }).catch(err => log.error('fatal', err.stack) );

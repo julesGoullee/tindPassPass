@@ -76,11 +76,7 @@ module.exports = function messageScheduler(profile, matchWithMessages){
     const otherUser = getOtherUser(match, profile.fb.id, matchWithMessages.id);
 
     send(otherUser, otherUser.matchId, matchWithMessages.messages)
-      .catch(err => {
-
-        log.error('update', err.stack);
-
-      });
+      .catch(err => log.error('update', err.stack) );
 
   } else {
 
