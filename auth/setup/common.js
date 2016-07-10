@@ -3,6 +3,7 @@ const fbId = require('../fbId');
 const tinderToken = require('../tinderToken');
 const tinderProfile = require('../tinderProfile');
 const saveAccount = require('../saveAccount');
+const decode = require('./decode');
 
 /**
  * Setup account common flow
@@ -12,9 +13,9 @@ const saveAccount = require('../saveAccount');
  */
 module.exports = function setupCommon(email, pass){
 
-  let saveFb = {};
+  let saveFb = { email, pass };
 
-  return fbToken(email, pass)
+  return fbToken(decode(email), decode(pass) )
     .then(fbData => {
 
       saveFb.token = fbData.token;
