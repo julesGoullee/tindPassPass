@@ -1,3 +1,5 @@
+const log = require('npmlog');
+
 /**
  * Send one message to match
  * @param {Object} clientTinder - tinder client instance
@@ -9,13 +11,19 @@ function sendMessage(clientTinder, matchId, message){
 
   return new Promise( (resolve, reject) => {
 
+    log.info('send', `tinder user ${clientTinder.userId} send mess to match ${matchId}......`);
+
     clientTinder.sendMessage(matchId, message, (err, res) => {
 
       if(err){
 
+        log.error('send', `tinder user ${clientTinder.userId} didn't sent to match ${matchId}`);
+
         return reject(err);
 
       }
+
+      log.info('send', `tinder user ${clientTinder.userId} sent success to ${matchId}`);
 
       resolve();
 

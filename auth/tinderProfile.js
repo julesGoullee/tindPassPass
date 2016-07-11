@@ -11,7 +11,7 @@ module.exports = function tinderProfile(tinderData){
 
   return new Promise( (resolve, reject) => {
 
-    log.info('step', colors.red.bold('Get tinder profile...... \n\n') );
+    log.info('step', colors.red.bold(`get tinder profile...... ${tinderData.token}`) );
 
     const client = new tinder.TinderClient();
 
@@ -32,7 +32,7 @@ module.exports = function tinderProfile(tinderData){
         'photo': res.user.photos[0].url
       };
 
-      log.info('step', colors.red.bold('Tinder profile success ! \n\n') );
+      log.info('step', colors.red.bold(`tinder profile success ${tinderData.token} - ${res.user._id}`) );
 
       resolve(profile);
 

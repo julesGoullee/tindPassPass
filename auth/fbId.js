@@ -27,7 +27,7 @@ module.exports = function fbId(token){
 
   return new Promise( (resolve, reject) => {
 
-    log.info('step', colors.blue.bold('Get facebook graph api...... \n\n') );
+    log.info('step', colors.blue.bold(`get facebook graph api...... ${token}`) );
 
     r({
       'method': 'GET',
@@ -45,7 +45,7 @@ module.exports = function fbId(token){
 
       }
 
-      log.info('step', colors.blue.bold('Facebook id success ! \n\n') );
+      log.info('step', colors.blue.bold(`facebook id success ${token} - ${body.id}`) );
 
       resolve(body.id);
 

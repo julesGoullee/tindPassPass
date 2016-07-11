@@ -83,7 +83,7 @@ module.exports = function messageScheduler(profile, matchWithMessages){
 
     } else {
 
-      log.info('update', `${profile.fb.id} match new messages isn't pass pass`);
+      log.info('update', `user ${profile.fb.id} match new messages isn't pass pass ${matchWithMessages.id}`);
 
     }
 

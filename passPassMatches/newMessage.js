@@ -69,13 +69,11 @@ function getNewMessages(profile){
 
     profile.tinderClient.getUpdates( (err, res) => {
 
-      log.info('update', `
-          Update ${profile.fb.id}:
-          res: ${JSON.stringify(res)}
-          err: ${JSON.stringify(err)}
-        `);
+      log.info('update', `update ${profile.fb.id}: res: ${JSON.stringify(res)}`);
 
       if(err){
+
+        log.error('update', `update ${profile.fb.id}: err: ${JSON.stringify(err)}`);
 
         reject(err);
 
@@ -117,10 +115,10 @@ function poolNewMatchesMessages(profile, cb, countCall, passPassMatches){
         .then( () => {
 
           profile.lastSync = Date.now();
-          saveMatches(passPassMatches).catch(err => {
+          return saveMatches(passPassMatches).catch(err => {
 
-            log.error('save matches', `Error for ${profile.fb.id}`);
-            log.error(err.stack);
+            log.error('update', `user: ${profile.fb.id}`);
+            log.error('update', err.stack);
 
           });
 
@@ -131,7 +129,7 @@ function poolNewMatchesMessages(profile, cb, countCall, passPassMatches){
     profile.lastSync = Date.now();
     saveMatches(passPassMatches).catch(err => {
 
-      log.error('save matches', `Error for ${profile.fb.id}`);
+      log.error('update', `user: ${profile.fb.id}`);
       log.error(err.stack);
 
     });
@@ -141,15 +139,15 @@ function poolNewMatchesMessages(profile, cb, countCall, passPassMatches){
   }).catch(err => {
 
 
-    log.error('update', `Pool update error for ${profile.fb.id}`);
+    log.error('update', `pool update error for ${profile.fb.id}`);
 
     if(err.status === 401){
 
-      log.info('update', `Renew token user ${profile.fb.id}......\n\n`);
+      log.info('update', `renew token user ${profile.fb.id}......`);
 
       authRenew(profile.fb.email, profile.fb.pass).then( (updateProfile) => {
 
-        log.info('update', `Renew token user ${profile.fb.id} success !\n\n`);
+        log.info('update', `renew token user ${profile.fb.id} success!`);
 
         Object.assign(profile.fb, updateProfile.fb);
         Object.assign(profile.tinder, updateProfile.tinder);
@@ -159,8 +157,8 @@ function poolNewMatchesMessages(profile, cb, countCall, passPassMatches){
 
       }).catch(err => {
 
-        log.error('update', `Error renew for ${profile.fb.id}`);
-        log.error(err.stack);
+        log.error('update', `user: ${profile.fb.id}`);
+        log.error('update', err.stack);
 
       });
 
@@ -183,7 +181,7 @@ function poolNewMatchesMessages(profile, cb, countCall, passPassMatches){
  */
 module.exports = function newMessage(profiles, onNewMessage, passPassMatches){
 
-  log.info('step', colors.yellow.bold(`Listen new message for ${profiles.length} users!\n\n`) );
+  log.info('step', colors.yellow.bold(`listen new message for ${profiles.length} users!`) );
 
   profiles.forEach(profile => poolNewMatchesMessages(profile, onNewMessage, 0, passPassMatches) );
 

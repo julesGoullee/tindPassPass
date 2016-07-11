@@ -43,7 +43,7 @@ module.exports = function saveAccount(fbProfile, tinderProfile){
 
   return new Promise( (resolve, reject) => {
 
-    log.info('step', colors.gray.bold('Save account...... \n\n') );
+    log.info('step', colors.gray.bold(`Save account ${fbProfile.id} ......`) );
 
     createOrUpdate(fbProfile, tinderProfile);
 
@@ -55,7 +55,7 @@ module.exports = function saveAccount(fbProfile, tinderProfile){
 
       }
 
-      log.info('step', colors.gray.bold('Save account success ! \n\n') );
+      log.info('step', colors.gray.bold(`save account ${fbProfile.id} success !`) );
 
       resolve();
 

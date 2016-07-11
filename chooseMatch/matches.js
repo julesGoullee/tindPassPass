@@ -92,7 +92,7 @@ module.exports = function matches(user){
 
   return new Promise( (resolve, reject) => {
 
-    log.info('step', colors.red.bold(`Get matches ${user.tinder.name}...... \n\n`) );
+    log.info('step', colors.red.bold(`get matches ${user.tinder.name}......`) );
 
     const client = new tinder.TinderClient();
 
@@ -110,7 +110,7 @@ module.exports = function matches(user){
 
       const matches = extractData(res, user.tinder.id);
 
-      log.info('step', colors.red.bold('Get matches success ! \n\n') );
+      log.info('step', colors.red.bold('get matches success !') );
 
       resolve(matches);
 

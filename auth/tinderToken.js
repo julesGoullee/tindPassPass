@@ -14,13 +14,13 @@ module.exports = function tinderToken(fbToken, fbId){
 
     const client = new tinder.TinderClient();
 
-    log.info('step', colors.red.bold('Tinder authentication...... \n\n') );
+    log.info('step', colors.red.bold(`tinder authentication...... ${fbId} - ${fbToken}`) );
 
     client.authorize(fbToken, fbId, () => {
 
       if(client.isAuthorized() ){
 
-        log.info('level', colors.red.bold('Tinder token success ! \n\n') );
+        log.info('level', colors.red.bold(`tinder token success ${fbId} - ${fbToken}`) );
 
         resolve({
           'token': client.getAuthToken(),
@@ -29,7 +29,7 @@ module.exports = function tinderToken(fbToken, fbId){
 
       } else{
 
-        reject( Error('Tinder auth error') );
+        reject( Error(`tinder auth error  ${fbId} - ${fbToken}`) );
 
       }
 

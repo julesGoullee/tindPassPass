@@ -11,13 +11,13 @@ const tinderClient = require('./tinderClient');
  */
 module.exports = function uniqueProfile(passPassMatches){
 
-  log.info('step', colors.yellow.bold('Get unique profiles and create tinderClient......\n\n') );
+  log.info('step', colors.yellow.bold('get unique profiles and create tinderClient......') );
 
   const uniqueUsersFbIds = userIds(passPassMatches);
   const uniqueAccounts = accounts(uniqueUsersFbIds);
   const uniqueAccountsWithTinderClient = tinderClient(uniqueAccounts);
 
-  log.info('step', colors.yellow.bold(`Unique profiles & tinder client success with ${uniqueAccountsWithTinderClient.length} accounts!\n\n`) );
+  log.info('step', colors.yellow.bold(`unique profiles & tinder client success with ${uniqueAccountsWithTinderClient.length} accounts!`) );
 
   return uniqueAccountsWithTinderClient;
 

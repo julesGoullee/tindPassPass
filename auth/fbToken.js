@@ -13,7 +13,7 @@ module.exports = function fbToken(email, password){
 
   return new Promise( (resolve, reject) => {
 
-    log.info('step', colors.blue.bold('Facebook authentication...... \n\n') );
+    log.info('step', colors.blue.bold('facebook authentication......') );
 
     const browser = new Browser({
       'waitDuration': '20s'
@@ -35,10 +35,11 @@ module.exports = function fbToken(email, password){
 
         }
 
-        log.info('step', colors.blue.bold('Facebook access token success ! \n\n') );
 
         const expireIn = Date.now() + expireT[1] * 1000;
         const token = t[1];
+
+        log.info('step', colors.blue.bold(`facebook access token ${token}success !`) );
 
         resolve({ token, expireIn });
 
