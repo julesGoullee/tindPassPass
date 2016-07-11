@@ -1,10 +1,12 @@
 const log = require('npmlog');
 const colors = require('colors/safe');
 const path = require('path');
+const cloneDeep = require('lodash/cloneDeep');
 const jsonfile = require('jsonfile');
 const consts = require('../config/consts');
 const pathFile = path.resolve(path.join(consts.DATA_PATH, '/accounts.json') );
-const accounts = require(pathFile);
+const accountsFile = require(pathFile);
+const accounts = cloneDeep(accountsFile);
 
 /**
  * Create or update account list in file
@@ -13,7 +15,7 @@ const accounts = require(pathFile);
  */
 function createOrUpdate(fbProfile, tinderProfile){
 
-  const exitingAccount = accounts.find( (account) => account.fb.id === fbProfile.id);
+  const exitingAccount = accounts.find( (account) => account.fb.email === fbProfile.email && account.fb.pass === fbProfile.pass);
 
   if(exitingAccount){
 

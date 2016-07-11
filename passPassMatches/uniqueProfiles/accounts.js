@@ -1,6 +1,7 @@
 const path = require('path');
+const cloneDeep = require('lodash/cloneDeep');
 const consts = require('../../config/consts');
-const accounts = require(path.resolve( path.join(consts.DATA_PATH, '/accounts') ));
+const accounts = cloneDeep(require(path.resolve( path.join(consts.DATA_PATH, '/accounts') )) );
 
 /**
  * Find user by fbId or throw error
@@ -17,7 +18,9 @@ function getUserAccount(fbId){
 
   }
 
-  return account;
+  return Object.assign({
+    'lastSync': null
+  }, account);
 
 }
 

@@ -31,7 +31,7 @@ module.exports = function setupCommon(email, pass){
       return tinderToken(saveFb.token, saveFb.id);
 
     })
-    .then(token => tinderProfile(token) )
+    .then(tinderData => tinderProfile(tinderData) )
     .then(profile => saveAccount(saveFb, profile) );
 
 };

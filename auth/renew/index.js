@@ -13,7 +13,7 @@ module.exports = function renew(email, pass){
 
   return new Promise( (resolve, reject) => {
 
-    let saveFb = {};
+    let saveFb = { email, pass };
     let saveTinder = {};
 
     fbToken(decode(email), decode(pass) )
@@ -25,9 +25,9 @@ module.exports = function renew(email, pass){
         return tinderToken(saveFb.token, saveFb.id);
 
       })
-      .then( (token) => {
+      .then( (tinderData) => {
 
-        saveTinder.token = token;
+        Object.assign(saveTinder, tinderData);
 
         return saveAccount(saveFb, saveTinder);
 

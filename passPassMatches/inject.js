@@ -36,7 +36,7 @@ function injectMatchesIntoProfiles(passPassMatches, profiles){
 
   profiles.forEach( (profile) => {
 
-    profile.matches = passPassMatches.filter( (passPassMatch) => isInMatch(passPassMatch, profile.fbId) );
+    profile.matches = passPassMatches.filter( (passPassMatch) => isInMatch(passPassMatch, profile.fb.id) );
 
   });
 

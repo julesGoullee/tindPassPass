@@ -4,10 +4,10 @@ const tinder = require('tinder');
 
 /**
  * Get tinder profile
- * @param {String} tinderToken - auth tinder token
+ * @param {String} tinderData - tinder token & lastActivity
  * @return {Promise} resolve with profile
  */
-module.exports = function tinderProfile(tinderToken){
+module.exports = function tinderProfile(tinderData){
 
   return new Promise( (resolve, reject) => {
 
@@ -15,7 +15,7 @@ module.exports = function tinderProfile(tinderToken){
 
     const client = new tinder.TinderClient();
 
-    client.setAuthToken(tinderToken);
+    client.setAuthToken(tinderData.token);
 
     client.getAccount( (err, res) => {
 

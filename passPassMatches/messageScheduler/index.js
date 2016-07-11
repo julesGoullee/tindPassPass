@@ -66,22 +66,27 @@ function getOtherUser(match, userId, matchId){
  * Schedule when user receive messages
  * @param {Object} profile - user profile
  * @param {Object} matchWithMessages - match with this new message
+ * @return {Promise} resolve when mess send
  */
 module.exports = function messageScheduler(profile, matchWithMessages){
 
-  if(isMatchPassPass(profile, matchWithMessages.id) ){
+  return new Promise( (resolve) => {
 
-    const match = findMatch(profile.matches, matchWithMessages.id);
+    if(isMatchPassPass(profile, matchWithMessages.id) ){
 
-    const otherUser = getOtherUser(match, profile.fb.id, matchWithMessages.id);
+      const match = findMatch(profile.matches, matchWithMessages.id);
 
-    send(otherUser, otherUser.matchId, matchWithMessages.messages)
-      .catch(err => log.error('update', err.stack) );
+      const otherUser = getOtherUser(match, profile.fb.id, matchWithMessages.id);
 
-  } else {
+      send(otherUser, otherUser.matchId, matchWithMessages.messages).then( () => resolve() )
+        .catch(err => log.error('update', err.stack) );
 
-    log.info('update', `${profile.fb.id} match new messages isn't pass pass`);
+    } else {
 
-  }
+      log.info('update', `${profile.fb.id} match new messages isn't pass pass`);
+
+    }
+
+  });
 
 };

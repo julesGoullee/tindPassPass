@@ -2,6 +2,7 @@ const log = require('npmlog');
 const colors = require('colors/safe');
 const consts = require('./consts');
 const authRenew = require('../auth/renew');
+const saveMatches = require('./saveMatches');
 
 let globalCount = 0;
 
@@ -99,8 +100,9 @@ function getNewMessages(profile){
  * @param {Object} profile - user props
  * @param {Function} cb - call each new match messages
  * @param {Number} countCall - count user call api
+ * @param {Array} passPassMatches - list of matches
  */
-function poolNewMatchesMessages(profile, cb, countCall){
+function poolNewMatchesMessages(profile, cb, countCall, passPassMatches){
 
   getNewMessages(profile).then( matchesWithMessages => {
 
@@ -111,11 +113,30 @@ function poolNewMatchesMessages(profile, cb, countCall){
 
     if(matchesWithMessages.length > 0){
 
-      matchesWithMessages.map(matchWithMessages => cb(profile, matchWithMessages) );
+      Promise.all(matchesWithMessages.map(matchWithMessages => cb(profile, matchWithMessages) ) )
+        .then( () => {
+
+          profile.lastSync = Date.now();
+          saveMatches(passPassMatches).catch(err => {
+
+            log.error('save matches', `Error for ${profile.fb.id}`);
+            log.error(err.stack);
+
+          });
+
+        });
 
     }
 
-    setTimeout( () => poolNewMatchesMessages(profile, cb, countCall), consts.CHECK_MESSAGE_INTERVAL);
+    profile.lastSync = Date.now();
+    saveMatches(passPassMatches).catch(err => {
+
+      log.error('save matches', `Error for ${profile.fb.id}`);
+      log.error(err.stack);
+
+    });
+
+    setTimeout( () => poolNewMatchesMessages(profile, cb, countCall, passPassMatches), consts.CHECK_MESSAGE_INTERVAL);
 
   }).catch(err => {
 
@@ -134,7 +155,7 @@ function poolNewMatchesMessages(profile, cb, countCall){
         Object.assign(profile.tinder, updateProfile.tinder);
         profile.tinderClient.setAuthToken(profile.tinder.token);
 
-        poolNewMatchesMessages(profile, cb, countCall);
+        setTimeout( () => poolNewMatchesMessages(profile, cb, countCall, passPassMatches), consts.CHECK_MESSAGE_INTERVAL);
 
       }).catch(err => {
 
@@ -146,7 +167,7 @@ function poolNewMatchesMessages(profile, cb, countCall){
     } else{
 
       log.error(err.stack);
-      setTimeout( () => poolNewMatchesMessages(profile, cb, countCall), consts.CHECK_MESSAGE_INTERVAL);
+      setTimeout( () => poolNewMatchesMessages(profile, cb, countCall, passPassMatches), consts.CHECK_MESSAGE_INTERVAL);
 
     }
 
@@ -158,11 +179,12 @@ function poolNewMatchesMessages(profile, cb, countCall){
  * Pooling new messages for each profiles
  * @param {Array} profiles - list of profiles
  * @param {Function} onNewMessage - callback on new match messages
+ * @param {Array} passPassMatches - list of matches
  */
-module.exports = function newMessage(profiles, onNewMessage){
+module.exports = function newMessage(profiles, onNewMessage, passPassMatches){
 
   log.info('step', colors.yellow.bold(`Listen new message for ${profiles.length} users!\n\n`) );
 
-  profiles.forEach(profile => poolNewMatchesMessages(profile, onNewMessage, 0) );
+  profiles.forEach(profile => poolNewMatchesMessages(profile, onNewMessage, 0, passPassMatches) );
 
 };

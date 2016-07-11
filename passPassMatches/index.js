@@ -16,6 +16,6 @@ allMatchesAreUniques(passPassMatchesFile).then( (passPassMatches) => {
   inject(passPassMatches, profiles);
   log.info('step', colors.yellow.bold(`Read from file ${passPassMatches.length} pass pass matches.......\n\n`) );
 
-  newMessage(profiles, messageScheduler);
+  newMessage(profiles, messageScheduler, passPassMatches);
 
 }).catch(err => log.error('allMatchesAreUniques', colors.red.bold(err.stack) ) );
