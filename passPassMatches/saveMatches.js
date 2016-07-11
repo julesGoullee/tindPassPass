@@ -36,7 +36,7 @@ module.exports = function saveMatches(passPassMatches){
 
   return new Promise( (resolve, reject) => {
 
-    log.info('step', colors.gray.bold('Save matches...... \n\n') );
+    log.info('step', colors.gray.bold(`Save ${passPassMatches.length} pass pass matches......`) );
 
     const passPassMatchesData = passPassMatches.map(passPassMatch => createOrUpdate(passPassMatch));
 
@@ -48,7 +48,7 @@ module.exports = function saveMatches(passPassMatches){
 
       }
 
-      log.info('step', colors.gray.bold(`Save pass pass matches success with ${passPassMatches.length} matches! \n\n`) );
+      log.info('step', colors.gray.bold(`Save ${passPassMatches.length} pass pass matches success matches`) );
 
       resolve();
 

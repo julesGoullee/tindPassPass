@@ -14,7 +14,7 @@ allMatchesAreUniques(passPassMatchesFile).then( (passPassMatches) => {
 
   const profiles = uniqueProfiles(passPassMatches);
   inject(passPassMatches, profiles);
-  log.info('step', colors.yellow.bold(`Read from file ${passPassMatches.length} pass pass matches.......\n\n`) );
+  log.info('step', colors.yellow.bold(`read from file ${passPassMatches.length} pass pass matches.......`) );
 
   newMessage(profiles, messageScheduler, passPassMatches);
 

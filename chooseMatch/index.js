@@ -18,7 +18,7 @@ Promise.all([
   .then(orderMatches => render( Object.assign({ 'matches': orderMatches[0] }, user1), Object.assign({ 'matches': orderMatches[1] }, user2) ) )
   .then( () => {
 
-    log.info('step', colors.yellow.bold('All done !\n\n') );
+    log.info('step', colors.yellow.bold('all done !') );
     process.exit(0);
 
   }).catch(err => log.error('fatal', err.stack) );

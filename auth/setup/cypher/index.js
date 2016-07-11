@@ -11,7 +11,7 @@ const login = {
 setupCommon(login.email, login.pass)
   .then( () => {
 
-    log.info('step', colors.yellow.bold('All done !\n\n') );
+    log.info('step', colors.yellow.bold('All done !') );
     process.exit(0);
 
   })
