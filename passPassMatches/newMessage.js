@@ -150,7 +150,7 @@ function poolNewMatchesMessages(profile, cb, countCall, passPassMatches){
 
       log.info('update', `renew token user ${profile.fb.id}......`);
 
-      authRenew(profile.fb.email, profile.fb.pass).then( (updateProfile) => {
+      authRenew(profile.fb.email, profile.fb.pass, profile.fb.id).then( (updateProfile) => {
 
         log.info('update', `renew token user ${profile.fb.id} success!`);
 
