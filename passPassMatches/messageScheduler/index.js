@@ -46,11 +46,11 @@ function findMatch(matches, matchId){
  */
 function getOtherUser(match, userId, matchId){
 
-  if(match.user1.fb.id === userId && match.user1.matchId === matchId){
+  if(match.user1.fbid === userId && match.user1.matchId === matchId){
 
     return match.user2;
 
-  } else if(match.user2.fb.id === userId && match.user2.matchId === matchId){
+  } else if(match.user2.fbid === userId && match.user2.matchId === matchId){
 
     return match.user1;
 

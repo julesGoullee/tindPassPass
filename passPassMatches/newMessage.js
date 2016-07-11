@@ -122,7 +122,12 @@ function poolNewMatchesMessages(profile, cb, countCall, passPassMatches){
 
           });
 
-        });
+        }).catch(err => {
+
+        log.error('update', `user: ${profile.fb.id}`);
+        log.error('update', err.stack);
+
+      });
 
     }
 
