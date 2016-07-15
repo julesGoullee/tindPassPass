@@ -1,14 +1,14 @@
-docker build -t jg/tind-pass-pass:0.107 .
+docker build -t jg/tind-pass-pass:0.109 .
 
 docker run -it \
     -v path/data:/tindPassPass/data  \
-    jg/tind-pass-pass:0.107 \
+    jg/tind-pass-pass:0.109 \
     /bin/bash
 
-docker run --name tindPassPass0.107 \
+docker run --name tindPassPass0.109 \
     -v /home/jules/apps/tindPassPass/data:/tindPassPass/data  \
     -d \
-    jg/tind-pass-pass:0.107
+    jg/tind-pass-pass:0.109
 
 scp -r ./dataDev/* jules@vps259493.ovh.net:~/apps/tindPassPass/data
 scp -r ./config/docker/app/Dockerfile jules@vps 259493.ovh.net:~/apps/tindPassPass/Dockerfile

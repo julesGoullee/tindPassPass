@@ -70,7 +70,7 @@ function getOtherUser(match, userId, matchId){
  */
 module.exports = function messageScheduler(profile, matchWithMessages){
 
-  return new Promise( (resolve) => {
+  return new Promise( (resolve, reject) => {
 
     if(isMatchPassPass(profile, matchWithMessages.id) ){
 
@@ -79,11 +79,12 @@ module.exports = function messageScheduler(profile, matchWithMessages){
       const otherUser = getOtherUser(match, profile.fb.id, matchWithMessages.id);
 
       send(otherUser, otherUser.matchId, matchWithMessages.messages).then( () => resolve() )
-        .catch(err => log.error('update', err.stack) );
+        .catch(err => reject(err) );
 
     } else {
 
       log.info('update', `user ${profile.fb.id} match new messages isn't pass pass ${matchWithMessages.id}`);
+      resolve();
 
     }
 

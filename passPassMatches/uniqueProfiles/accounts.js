@@ -18,9 +18,7 @@ function getUserAccount(fbId){
 
   }
 
-  return Object.assign({
-    'lastSync': null
-  }, account);
+  return account;
 
 }
 

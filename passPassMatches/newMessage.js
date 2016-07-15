@@ -2,7 +2,7 @@ const log = require('npmlog');
 const colors = require('colors/safe');
 const consts = require('./consts');
 const authRenew = require('../auth/renew');
-const saveMatches = require('./saveMatches');
+const saveAccount = require('../auth/saveAccount');
 
 let globalCount = 0;
 
@@ -69,7 +69,7 @@ function getNewMessages(profile){
 
     profile.tinderClient.getUpdates( (err, res) => {
 
-      log.info('update', `update ${profile.fb.id}: res: ${JSON.stringify(res)}`);
+      // log.info('update', `update ${profile.fb.id}: res: ${JSON.stringify(res)}`);
 
       if(err){
 
@@ -106,6 +106,7 @@ function poolNewMatchesMessages(profile, cb, countCall, passPassMatches){
 
     globalCount +=1;
     countCall +=1;
+    profile.tinder.lastActivity = profile.tinderClient.lastActivity.getTime();
 
     log.info('update', `global count api tinder: ${globalCount}, user ${profile.fb.id}: ${countCall}`);
 
@@ -114,8 +115,7 @@ function poolNewMatchesMessages(profile, cb, countCall, passPassMatches){
       Promise.all(matchesWithMessages.map(matchWithMessages => cb(profile, matchWithMessages) ) )
         .then( () => {
 
-          profile.lastSync = Date.now();
-          return saveMatches(passPassMatches).catch(err => {
+          return saveAccount(profile.fb, profile.tinder).catch(err => {
 
             log.error('update', `user: ${profile.fb.id}`);
             log.error('update', err.stack);
@@ -129,20 +129,20 @@ function poolNewMatchesMessages(profile, cb, countCall, passPassMatches){
 
       });
 
+    } else {
+
+      saveAccount(profile.fb, profile.tinder).catch(err => {
+
+        log.error('update', `user: ${profile.fb.id}`);
+        log.error(err.stack);
+
+      });
+
+      setTimeout( () => poolNewMatchesMessages(profile, cb, countCall, passPassMatches), consts.CHECK_MESSAGE_INTERVAL);
+
     }
 
-    profile.lastSync = Date.now();
-    saveMatches(passPassMatches).catch(err => {
-
-      log.error('update', `user: ${profile.fb.id}`);
-      log.error(err.stack);
-
-    });
-
-    setTimeout( () => poolNewMatchesMessages(profile, cb, countCall, passPassMatches), consts.CHECK_MESSAGE_INTERVAL);
-
   }).catch(err => {
-
 
     log.error('update', `pool update error for ${profile.fb.id}`);
 

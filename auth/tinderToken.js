@@ -23,8 +23,7 @@ module.exports = function tinderToken(fbToken, fbId){
         log.info('level', colors.red.bold(`tinder token success ${fbId} - ${fbToken}`) );
 
         resolve({
-          'token': client.getAuthToken(),
-          'lastActivity': client.lastActivity.getTime()
+          'token': client.getAuthToken()
         });
 
       } else{

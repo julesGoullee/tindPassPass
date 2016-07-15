@@ -17,8 +17,6 @@ function createOrUpdate(passPassMatch) {
     'user2': {}
   };
 
-  currentMatch.user1.lastSyncDate = passPassMatch.user1.profile.lastSync;
-  currentMatch.user2.lastSyncDate = passPassMatch.user2.profile.lastSync;
   currentMatch.user1.matchId = passPassMatch.user1.matchId;
   currentMatch.user2.matchId = passPassMatch.user2.matchId;
   currentMatch.user1.fbId = passPassMatch.user1.fbId;
