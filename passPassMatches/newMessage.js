@@ -138,9 +138,9 @@ function poolNewMatchesMessages(profile, cb, countCall, passPassMatches){
 
       });
 
-      setTimeout( () => poolNewMatchesMessages(profile, cb, countCall, passPassMatches), consts.CHECK_MESSAGE_INTERVAL);
-
     }
+
+    setTimeout( () => poolNewMatchesMessages(profile, cb, countCall, passPassMatches), consts.CHECK_MESSAGE_INTERVAL);
 
   }).catch(err => {
 
